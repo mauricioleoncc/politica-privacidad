@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar sesión con Facebook</title>
+</head>
+<body>
+
+<h2>Iniciar sesión con Facebook</h2>
+
+<!-- SDK de Facebook -->
+<script async defer crossorigin="anonymous"
+  src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+<script>
+  window.fbAsyncInit = function () {
+    FB.init({
+      appId: 'TU_APP_ID_AQUI', // ← Reemplaza con tu App ID real
+      cookie: true,
+      xfbml: true,
+      version: 'v19.0'
+    });
+  };
+
+  function loginWithFacebook() {
+    FB.login(function (response) {
+      if (response.authResponse) {
+        FB.api('/me', { fields: 'name,email' }, function (userInfo) {
+          alert(`Bienvenido, ${userInfo.name}. Tu correo es ${userInfo.email}`);
+        });
+      } else {
+        alert('Inicio de sesión cancelado o no autorizado.');
+      }
+    }, { scope: 'email,public_profile' });
+  }
+</script>
+
+<!-- Botón -->
+<button onclick="loginWithFacebook()">🔵 Iniciar sesión con Facebook</button>
+
+</body>
+</html>
